@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [currentBg, setCurrentBg] = useState(0);
-  const [prevBg, setPrevBg] = useState(0);
-  const [fade, setFade] = useState(true);
 
   const backgroundImages = [
     "/images/hero-bg.jpg",
@@ -12,20 +10,38 @@ export default function App() {
     "/images/hero-bg3.jpg",
   ];
 
+  // keep a ref to interval so we can reset it when user clicks indicator
+  const intervalRef = useRef(null);
+
   useEffect(() => {
     setLoaded(true);
 
-    const interval = setInterval(() => {
-      setPrevBg(currentBg);
+    // Preload images to avoid flicker
+    backgroundImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // start slideshow
+    startInterval();
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function startInterval() {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-      setFade(false);
+    }, 4000); // change every 4s (you can tweak)
+  }
 
-      // Trigger fade after re-render
-      setTimeout(() => setFade(true), 50);
-    }, 5000); // Change every 5 sec
-
-    return () => clearInterval(interval);
-  }, [currentBg]);
+  function goToSlide(index) {
+    setCurrentBg(index);
+    startInterval(); // reset timing so user has full interval after click
+  }
 
   return (
     <div className="bg-black text-gray-100">
@@ -55,34 +71,37 @@ export default function App() {
               >
                 {item}
               </a>
-              <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full" />
             </div>
           ))}
         </nav>
       </header>
 
-      {/* Hero Section with true crossfade */}
+      {/* =========================
+          HERO: stacked <img> cross-dissolve
+          ========================= */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Previous background (fading out) */}
-        <div
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
-            fade ? "opacity-0" : "opacity-100"
-          }`}
-          style={{ backgroundImage: `url(${backgroundImages[prevBg]})` }}
-        ></div>
+        {/* stacked images (all in DOM) */}
+        {backgroundImages.map((src, idx) => (
+          <img
+            key={src}
+            src={src}
+            alt={`slide-${idx + 1}`}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            // use inline style for smooth opacity transition
+            style={{
+              transition: "opacity 1600ms ease-in-out",
+              opacity: idx === currentBg ? 1 : 0,
+              transform: "scale(1.03)", // subtle fill so edges don't show during fade
+            }}
+            aria-hidden={idx === currentBg ? "false" : "true"}
+          />
+        ))}
 
-        {/* Current background (fading in) */}
-        <div
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
-            fade ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
-        ></div>
+        {/* dark overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-70" />
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-
-        {/* Hero content */}
+        {/* hero content */}
         <div
           className={`bg-black bg-opacity-80 p-10 rounded-xl text-center transition-all duration-1000 transform border border-gold-500 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -103,27 +122,22 @@ export default function App() {
           </a>
         </div>
 
-        {/* Slideshow indicators */}
+        {/* indicators */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
           {backgroundImages.map((_, index) => (
             <button
               key={index}
+              onClick={() => goToSlide(index)}
+              aria-label={`Show slide ${index + 1}`}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentBg ? "bg-gold-500 scale-110" : "bg-gray-600"
               }`}
-              onClick={() => {
-                setPrevBg(currentBg);
-                setCurrentBg(index);
-                setFade(false);
-                setTimeout(() => setFade(true), 50);
-              }}
-              aria-label={`Show slide ${index + 1}`}
             />
           ))}
         </div>
       </section>
 
-      {/* Product Section */}
+      {/* Product Section (intact) */}
       <section
         id="products"
         className="py-16 px-6 max-w-6xl mx-auto text-center bg-gray-900"
@@ -156,7 +170,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer (intact) */}
       <footer className="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
         <p>© {new Date().getFullYear()} SOUL Fragrance. All Rights Reserved.</p>
         <div className="mt-4 flex justify-center space-x-6">
@@ -172,7 +186,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Custom styles */}
+      {/* gold color styles (intact) */}
       <style jsx>{`
         .text-gold-500 {
           color: #d4af37;
