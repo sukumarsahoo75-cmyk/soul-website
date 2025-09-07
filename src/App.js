@@ -9,8 +9,8 @@ export default function App() {
 
   return (
     <div className="bg-white text-gray-900">
-      {/* Navbar with minimal spacing */}
-      <header className="flex flex-col items-center pt-2 pb-0 shadow">
+      {/* Navbar with minimal spacing but gap below */}
+      <header className="flex flex-col items-center pt-0 pb-0 shadow mb-4">
         {/* Logo with minimal spacing */}
         <img
           src="/images/logo.png"
