@@ -9,20 +9,20 @@ export default function App() {
 
   return (
     <div className="bg-white text-gray-900">
-      {/* Navbar with reduced spacing */}
-      <header className="flex flex-col items-center py-0 shadow">
-        {/* Logo with reduced size and spacing */}
+      {/* Navbar with minimal spacing */}
+      <header className="flex flex-col items-center pt-0 pb-0 shadow">
+        {/* Logo with minimal spacing */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
           className={`transition-transform duration-1000 ease-out ${
-            loaded ? "scale-110 opacity-100" : "scale-0 opacity-0"
+            loaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: "280px", height: "auto", margin: "2px 0" }}
+          style={{ width: "220px", height: "auto", margin: "0" }}
         />
 
-        {/* Menu with reduced spacing */}
-        <nav className="mt-0 flex space-x-6 text-xl font-semibold">
+        {/* Menu with minimal spacing */}
+        <nav className="mt-0 mb-1 flex space-x-5 text-lg font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
