@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className="bg-white text-gray-900">
       {/* Navbar */}
-      <header className="flex flex-col items-center py-2 shadow"> {/* Reduced padding top/bottom */}
+      <header className="flex flex-col items-center py-1 shadow"> {/* Reduced padding top/bottom */}
         {/* Logo with smaller size and floating animation */}
         <img
           src="/images/logo.png"
@@ -22,7 +22,7 @@ export default function App() {
         />
 
         {/* Menu */}
-        <nav className="mt-2 flex space-x-6 text-lg font-medium"> {/* Reduced margin-top */}
+        <nav className="mt-1 flex space-x-2 text-lg font-medium"> {/* Reduced margin-top */}
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
