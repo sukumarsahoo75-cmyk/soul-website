@@ -17,7 +17,7 @@ export default function App() {
     // Set up the slideshow interval
     const interval = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-    }, 2000); // Change every 2 seconds
+    }, 2000); // Change every 3 seconds
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
@@ -27,27 +27,28 @@ export default function App() {
     <div className="bg-black text-gray-100">
       {/* Navbar with minimal spacing but gap below */}
       <header className="flex flex-col items-center pt-0 pb-0 mb-4 border-b border-gray-800">
-        {/* Logo with minimal spacing */}
+        {/* Logo with minimal spacing - fixed width on mobile */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ width: "400px", height: "auto", margin: "0" }}
+          } w-[400px] max-w-full h-auto mx-0 my-0`}
+          style={{ filter: "brightness(0) invert(1)" }}
         />
 
-        {/* Menu with minimal spacing */}
+        {/* Menu with minimal spacing and hover underline animation */}
         <nav className="mt-0 mb-1 flex space-x-8 text-lg font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className={`text-gold-500 hover:text-gold-300 transition-all duration-300 delay-${index * 200} ${
+              className={`text-gold-500 relative group transition-all duration-300 delay-${index * 200} ${
                 loaded ? "opacity-100" : "opacity-0"
               }`}
             >
               {item}
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
         </nav>
@@ -60,20 +61,20 @@ export default function App() {
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div
-          className={`bg-black bg-opacity-80 p-10 rounded-xl text-center transition-all duration-1000 transform border border-gold-500 ${
+          className={`bg-black bg-opacity-80 p-6 md:p-10 rounded-xl text-center transition-all duration-1000 transform border border-gold-500 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          } delay-700 relative z-10`}
+          } delay-700 relative z-10 mx-4`}
         >
-          <h1 className="text-5xl md:text-6xl font-extrabold text-gold-500 tracking-wide drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gold-500 tracking-wide drop-shadow-lg hero-glow">
             Discover Your Signature Scent
           </h1>
-          <p className="mt-4 text-lg text-gray-300 max-w-xl mx-auto">
+          <p className="mt-4 text-base md:text-lg text-gray-300 max-w-xl mx-auto">
             Premium, long-lasting perfumes designed to evoke emotions and
             memories. Experience the essence of SOUL.
           </p>
           <a
             href="#products"
-            className="mt-6 inline-block px-8 py-3 bg-gold-600 text-black font-semibold rounded-full shadow-lg hover:bg-gold-500 transition transform hover:scale-105"
+            className="mt-6 inline-block px-6 md:px-8 py-2 md:py-3 bg-gold-600 text-black font-semibold rounded-full shadow-lg hover:bg-gold-500 transition transform hover:scale-105"
           >
             Shop Now
           </a>
@@ -155,7 +156,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Custom styles for gold color */}
+      {/* Custom styles for gold color and text glow */}
       <style jsx>{`
         .text-gold-500 { color: #D4AF37; }
         .text-gold-400 { color: #E5C158; }
@@ -165,6 +166,21 @@ export default function App() {
         .border-gold-500 { border-color: #D4AF37; }
         .hover\:bg-gold-500:hover { background-color: #D4AF37; }
         .hover\:text-gold-300:hover { color: #F1D486; }
+        
+        /* Hero text glow effect */
+        .hero-glow {
+          text-shadow: 0 0 10px rgba(212, 175, 55, 0.5),
+                       0 0 20px rgba(212, 175, 55, 0.3),
+                       0 0 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .hero-glow {
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5),
+                         0 0 15px rgba(212, 175, 55, 0.3);
+          }
+        }
       `}</style>
     </div>
   );
