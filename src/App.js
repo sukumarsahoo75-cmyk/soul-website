@@ -10,19 +10,19 @@ export default function App() {
   return (
     <div className="bg-white text-gray-900">
       {/* Navbar */}
-      <header className="flex flex-col items-center py-1 shadow"> {/* Reduced padding top/bottom */}
-        {/* Logo with smaller size and floating animation */}
+      <header className="flex flex-col items-center py-1 shadow">
+        {/* Logo without floating animation & reduced spacing */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
           className={`transition-transform duration-1000 ease-out ${
-            loaded ? "scale-150 opacity-100 animate-float" : "scale-0 opacity-0"
+            loaded ? "scale-125 opacity-100" : "scale-0 opacity-0"
           }`}
-          style={{ width: "500px", height: "auto" }}
+          style={{ width: "350px", height: "auto", margin: "10px 0" }} // Reduced size & spacing
         />
 
-        {/* Menu */}
-        <nav className="mt-1 flex space-x-10 text-lg font-large"> {/* Reduced margin-top */}
+        {/* Menu with bigger font size */}
+        <nav className="mt-1 flex space-x-10 text-2xl font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
@@ -109,19 +109,6 @@ export default function App() {
       <footer className="bg-gray-900 text-gray-300 py-8 text-center">
         <p>© {new Date().getFullYear()} SOUL Fragrance. All Rights Reserved.</p>
       </footer>
-
-      {/* Tailwind custom animation for floating */}
-      <style>
-        {`
-          @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-          }
-          .animate-float {
-            animation: float 3s ease-in-out infinite;
-          }
-        `}
-      </style>
     </div>
   );
 }
