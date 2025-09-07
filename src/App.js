@@ -4,7 +4,6 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after component mounts
     setLoaded(true);
   }, []);
 
@@ -12,30 +11,29 @@ export default function App() {
     <div className="bg-white text-gray-900">
       {/* Navbar */}
       <header className="flex flex-col items-center py-6 shadow">
-        {/* Logo */}
+        {/* Logo with smaller size and floating animation */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
           className={`transition-transform duration-1000 ease-out ${
-            loaded ? "scale-[5] opacity-100" : "scale-0 opacity-0"
+            loaded ? "scale-150 opacity-100 animate-float" : "scale-0 opacity-0"
           }`}
+          style={{ width: "100px", height: "auto" }} // smaller professional size
         />
 
         {/* Menu */}
-        <nav
-          className={`mt-6 space-x-6 text-lg font-medium transition-opacity duration-1000 ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <a href="#products" className="hover:text-gray-600">
-            Products
-          </a>
-          <a href="#about" className="hover:text-gray-600">
-            About
-          </a>
-          <a href="#contact" className="hover:text-gray-600">
-            Contact
-          </a>
+        <nav className="mt-6 flex space-x-6 text-lg font-medium">
+          {["Products", "About", "Contact"].map((item, index) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className={`hover:text-gray-600 transition-opacity duration-700 delay-${index * 200} ${
+                loaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {item}
+            </a>
+          ))}
         </nav>
       </header>
 
@@ -44,7 +42,11 @@ export default function App() {
         className="relative bg-cover bg-center h-[90vh] flex items-center justify-center"
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
       >
-        <div className="bg-black bg-opacity-50 p-10 rounded-xl text-center">
+        <div
+          className={`bg-black bg-opacity-50 p-10 rounded-xl text-center transition-all duration-1000 transform ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          } delay-700`}
+        >
           <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-wide drop-shadow-lg">
             Discover Your Signature Scent
           </h1>
@@ -107,6 +109,19 @@ export default function App() {
       <footer className="bg-gray-900 text-gray-300 py-8 text-center">
         <p>© {new Date().getFullYear()} SOUL Fragrance. All Rights Reserved.</p>
       </footer>
+
+      {/* Tailwind custom animation for floating */}
+      <style>
+        {`
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+        `}
+      </style>
     </div>
   );
 }
