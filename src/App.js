@@ -3,25 +3,23 @@ import React, { useEffect, useState } from "react";
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [currentBg, setCurrentBg] = useState(0);
-  const [fade, setFade] = useState(true);
 
+  // Array of background images
   const backgroundImages = [
     "/images/hero-bg.jpg",
     "/images/hero-bg2.jpg",
-    "/images/hero-bg3.jpg",
+    "/images/hero-bg3.jpg"
   ];
 
   useEffect(() => {
     setLoaded(true);
-
+    
+    // Set up the slideshow interval
     const interval = setInterval(() => {
-      setFade(false); // start fade out
-      setTimeout(() => {
-        setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-        setFade(true); // fade in after changing image
-      }, 500); // match fade duration
-    }, 4000); // every 2s for smooth feeling
+      setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
+    }, 2000); // Change every 2 seconds
 
+    // Clean up the interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
