@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className="bg-white text-gray-900">
       {/* Navbar with minimal spacing */}
-      <header className="flex flex-col items-center pt-0 pb-0 shadow">
+      <header className="flex flex-col items-center pt-2 pb-0 shadow">
         {/* Logo with minimal spacing */}
         <img
           src="/images/logo.png"
@@ -18,7 +18,7 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: "500px", height: "auto", margin: "0" }}
+          style={{ width: "400px", height: "auto", margin: "0" }}
         />
 
         {/* Menu with minimal spacing */}
