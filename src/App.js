@@ -22,7 +22,7 @@ export default function App() {
 
       // Trigger fade after re-render
       setTimeout(() => setFade(true), 50);
-    }, 6000); // change every 6s
+    }, 5000); // Change every 5 sec
 
     return () => clearInterval(interval);
   }, [currentBg]);
@@ -61,24 +61,21 @@ export default function App() {
         </nav>
       </header>
 
-      {/* Hero Section with true crossfade + Ken Burns */}
+      {/* Hero Section with true crossfade */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Previous background (fading out, no zoom) */}
+        {/* Previous background (fading out) */}
         <div
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
             fade ? "opacity-0" : "opacity-100"
           }`}
-          style={{
-            backgroundImage: `url(${backgroundImages[prevBg]})`,
-            transform: "scale(1)",
-          }}
+          style={{ backgroundImage: `url(${backgroundImages[prevBg]})` }}
         ></div>
 
-        {/* Current background (fading in with zoom) */}
+        {/* Current background (fading in) */}
         <div
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
             fade ? "opacity-100" : "opacity-0"
-          } kenburns`}
+          }`}
           style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
         ></div>
 
@@ -177,17 +174,6 @@ export default function App() {
 
       {/* Custom styles */}
       <style jsx>{`
-        .kenburns {
-          animation: kenburnsZoom 6s ease-in-out forwards;
-        }
-        @keyframes kenburnsZoom {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1.1);
-          }
-        }
         .text-gold-500 {
           color: #d4af37;
         }
