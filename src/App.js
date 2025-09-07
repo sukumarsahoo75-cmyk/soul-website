@@ -17,7 +17,7 @@ export default function App() {
     // Set up the slideshow interval
     const interval = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-    }, 2000); // Change every 3 seconds
+    }, 2000); // Change every 2 seconds
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
@@ -34,7 +34,6 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
           } w-[400px] max-w-full h-auto mx-0 my-0`}
-          style={{ filter: "brightness(0) invert(1)" }}
         />
 
         {/* Menu with minimal spacing and hover underline animation */}
