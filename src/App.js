@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation after component mounts
+    setIsLoaded(true);
+  }, []);
+
   return (
     <div className="bg-white text-gray-900">
       {/* Navbar */}
-      <header className="flex items-center justify-between px-6 py-4 shadow">
-        <div className="flex items-center space-x-2">
-          <img src="/images/logo.png" alt="SOUL Logo" className="h-10 w-auto" />
-          <span className="text-2xl font-bold tracking-widest">SOUL</span>
+      <header className="flex flex-col items-center px-6 py-4 shadow">
+        {/* Logo with animation */}
+        <div className={`transition-all duration-1000 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
+          <img 
+            src="/images/logo.png" 
+            alt="SOUL Logo" 
+            className="h-24 w-auto mx-auto mb-4" 
+          />
         </div>
-        <nav className="space-x-6 text-lg font-medium">
-          <a href="#products" className="hover:text-gray-600">
+        
+        {/* Navigation menu with animation */}
+        <nav className={`flex space-x-6 text-lg font-medium mt-4 transition-all duration-700 delay-300 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
+          <a href="#products" className="hover:text-gray-600 transition-colors duration-300">
             Products
           </a>
-          <a href="#about" className="hover:text-gray-600">
+          <a href="#about" className="hover:text-gray-600 transition-colors duration-300">
             About
           </a>
-          <a href="#contact" className="hover:text-gray-600">
+          <a href="#contact" className="hover:text-gray-600 transition-colors duration-300">
             Contact
           </a>
         </nav>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section with fade-in animation */}
       <section
-        className="relative bg-cover bg-center h-[90vh] flex items-center justify-center"
+        className={`relative bg-cover bg-center h-[90vh] flex items-center justify-center transition-opacity duration-1000 delay-500 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
       >
         <div className="bg-black bg-opacity-50 p-10 rounded-xl text-center">
