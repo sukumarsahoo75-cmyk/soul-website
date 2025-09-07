@@ -22,7 +22,7 @@ export default function App() {
         />
 
         {/* Menu */}
-        <nav className="mt-1 flex space-x-6 text-lg font-medium"> {/* Reduced margin-top */}
+        <nav className="mt-1 flex space-x-10 text-lg font-large"> {/* Reduced margin-top */}
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
