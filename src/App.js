@@ -8,18 +8,17 @@ export default function App() {
   const backgroundImages = [
     "/images/hero-bg.jpg",
     "/images/hero-bg2.jpg",
-    "/images/hero-bg3.jpg"
+    "/images/hero-bg3.jpg",
   ];
 
   useEffect(() => {
     setLoaded(true);
-    
+
     // Set up the slideshow interval
     const interval = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-    }, 2000); // Change every 2 seconds
+    }, 3000); // Change every 3 seconds for smoother feel
 
-    // Clean up the interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -27,6 +26,7 @@ export default function App() {
     <div className="bg-black text-gray-100">
       {/* Navbar */}
       <header className="flex flex-col items-center pt-0 pb-0 mb-4 border-b border-gray-800">
+        {/* Responsive Logo */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
@@ -41,6 +41,7 @@ export default function App() {
           }}
         />
 
+        {/* Menu */}
         <nav className="mt-0 mb-1 flex space-x-10 text-xl font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <div key={item} className="relative group">
@@ -52,17 +53,17 @@ export default function App() {
               >
                 {item}
               </a>
+              {/* Hover underline */}
               <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
             </div>
           ))}
         </nav>
       </header>
 
-      {/* Hero Section with restored crossfade */}
+      {/* Hero Section with crossfade slideshow */}
       <section
-        className={`relative bg-cover bg-center h-[90vh] flex items-center justify-center transition-opacity duration-500 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
+        key={currentBg}
+        className="relative bg-cover bg-center h-[90vh] flex items-center justify-center transition-opacity duration-1000"
         style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
@@ -150,6 +151,7 @@ export default function App() {
         </div>
       </footer>
 
+      {/* Custom styles for gold color */}
       <style jsx>{`
         .text-gold-500 {
           color: #d4af37;
