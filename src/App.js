@@ -18,7 +18,7 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "scale-125 opacity-100" : "scale-0 opacity-0"
           }`}
-          style={{ width: "400px", height: "auto", margin: "5px 0" }} // Further reduced size & spacing
+          style={{ width: "400px", height: "auto", margin: "1px 0" }} // Further reduced size & spacing
         />
 
         {/* Menu with reduced spacing */}
