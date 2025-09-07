@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [currentBg, setCurrentBg] = useState(0);
+  const [prevBg, setPrevBg] = useState(0);
+  const [fade, setFade] = useState(true);
 
-  // Array of background images
   const backgroundImages = [
     "/images/hero-bg.jpg",
     "/images/hero-bg2.jpg",
@@ -14,19 +15,22 @@ export default function App() {
   useEffect(() => {
     setLoaded(true);
 
-    // Set up the slideshow interval
     const interval = setInterval(() => {
+      setPrevBg(currentBg);
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-    }, 3000); // Change every 3 seconds for smoother feel
+      setFade(false);
+
+      // Trigger fade after re-render
+      setTimeout(() => setFade(true), 50);
+    }, 6000); // change every 6s
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentBg]);
 
   return (
     <div className="bg-black text-gray-100">
       {/* Navbar */}
       <header className="flex flex-col items-center pt-0 pb-0 mb-4 border-b border-gray-800">
-        {/* Responsive Logo */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
@@ -40,8 +44,6 @@ export default function App() {
             margin: "0",
           }}
         />
-
-        {/* Menu */}
         <nav className="mt-0 mb-1 flex space-x-10 text-xl font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <div key={item} className="relative group">
@@ -53,20 +55,37 @@ export default function App() {
               >
                 {item}
               </a>
-              {/* Hover underline */}
               <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
             </div>
           ))}
         </nav>
       </header>
 
-      {/* Hero Section with crossfade slideshow */}
-      <section
-        key={currentBg}
-        className="relative bg-cover bg-center h-[90vh] flex items-center justify-center transition-opacity duration-1000"
-        style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
-      >
+      {/* Hero Section with true crossfade + Ken Burns */}
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Previous background (fading out, no zoom) */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
+            fade ? "opacity-0" : "opacity-100"
+          }`}
+          style={{
+            backgroundImage: `url(${backgroundImages[prevBg]})`,
+            transform: "scale(1)",
+          }}
+        ></div>
+
+        {/* Current background (fading in with zoom) */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ${
+            fade ? "opacity-100" : "opacity-0"
+          } kenburns`}
+          style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
+        ></div>
+
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+
+        {/* Hero content */}
         <div
           className={`bg-black bg-opacity-80 p-10 rounded-xl text-center transition-all duration-1000 transform border border-gold-500 ${
             loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -92,10 +111,15 @@ export default function App() {
           {backgroundImages.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full ${
-                index === currentBg ? "bg-gold-500" : "bg-gray-600"
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentBg ? "bg-gold-500 scale-110" : "bg-gray-600"
               }`}
-              onClick={() => setCurrentBg(index)}
+              onClick={() => {
+                setPrevBg(currentBg);
+                setCurrentBg(index);
+                setFade(false);
+                setTimeout(() => setFade(true), 50);
+              }}
               aria-label={`Show slide ${index + 1}`}
             />
           ))}
@@ -151,8 +175,19 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Custom styles for gold color */}
+      {/* Custom styles */}
       <style jsx>{`
+        .kenburns {
+          animation: kenburnsZoom 6s ease-in-out forwards;
+        }
+        @keyframes kenburnsZoom {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(1.1);
+          }
+        }
         .text-gold-500 {
           color: #d4af37;
         }
