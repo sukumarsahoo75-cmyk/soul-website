@@ -18,7 +18,7 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "scale-150 opacity-100 animate-float" : "scale-0 opacity-0"
           }`}
-          style={{ width: "100px", height: "auto" }} // smaller professional size
+          style={{ width: "200px", height: "auto" }} // smaller professional size
         />
 
         {/* Menu */}
