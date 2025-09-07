@@ -2,9 +2,25 @@ import React, { useEffect, useState } from "react";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
+  const [currentBg, setCurrentBg] = useState(0);
+
+  // Array of background images
+  const backgroundImages = [
+    "/images/hero-bg.jpg",
+    "/images/hero-bg2.jpg",
+    "/images/hero-bg3.jpg"
+  ];
 
   useEffect(() => {
     setLoaded(true);
+    
+    // Set up the slideshow interval
+    const interval = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
+    }, 2000); // Change every 2 seconds
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -18,7 +34,7 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: "400px", height: "auto", margin: "0" }}
+          style={{ width: "220px", height: "auto", margin: "0" }}
         />
 
         {/* Menu with minimal spacing */}
@@ -37,10 +53,10 @@ export default function App() {
         </nav>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section with slideshow */}
       <section
-        className="relative bg-cover bg-center h-[90vh] flex items-center justify-center"
-        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+        className="relative bg-cover bg-center h-[90vh] flex items-center justify-center transition-all duration-1000"
+        style={{ backgroundImage: `url(${backgroundImages[currentBg]})` }}
       >
         <div
           className={`bg-black bg-opacity-50 p-10 rounded-xl text-center transition-all duration-1000 transform ${
@@ -60,6 +76,20 @@ export default function App() {
           >
             Shop Now
           </a>
+        </div>
+        
+        {/* Slideshow indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {backgroundImages.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full ${
+                index === currentBg ? "bg-white" : "bg-gray-400"
+              }`}
+              onClick={() => setCurrentBg(index)}
+              aria-label={`Show slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
