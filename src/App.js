@@ -18,9 +18,9 @@ export default function App() {
       setFade(false); // start fade out
       setTimeout(() => {
         setCurrentBg((prev) => (prev + 1) % backgroundImages.length);
-        setFade(true); // fade in new image
-      }, 500); // half the transition time for smoother effect
-    }, 4000); // 4 sec per slide
+        setFade(true); // fade in next image
+      }, 500);
+    }, 5000); // 5 sec per slide (gives time for slow zoom)
 
     return () => clearInterval(interval);
   }, []);
@@ -59,17 +59,20 @@ export default function App() {
         </nav>
       </header>
 
-      {/* Hero Section with true crossfade */}
+      {/* Hero Section with Ken Burns effect */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background Layer */}
+        {/* Background Image with crossfade + zoom */}
         <div
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000`}
           style={{
             backgroundImage: `url(${backgroundImages[currentBg]})`,
             opacity: fade ? 1 : 0,
+            transform: fade ? "scale(1.05)" : "scale(1)",
+            transition:
+              "opacity 1s ease-in-out, transform 5s ease-in-out", // smooth zoom over 5s
           }}
         />
-        {/* Overlay */}
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
         {/* Content */}
