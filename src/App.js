@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className="bg-white text-gray-900">
       {/* Navbar */}
-      <header className="flex flex-col items-center py-1 shadow">
+      <header className="flex flex-col items-center py-0 shadow">
         {/* Logo without floating animation & reduced spacing */}
         <img
           src="/images/logo.png"
@@ -18,11 +18,11 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "scale-125 opacity-100" : "scale-0 opacity-0"
           }`}
-          style={{ width: "350px", height: "auto", margin: "10px 0" }} // Reduced size & spacing
+          style={{ width: "400px", height: "auto", margin: "5px 0" }} // Further reduced size & spacing
         />
 
-        {/* Menu with bigger font size */}
-        <nav className="mt-1 flex space-x-10 text-2xl font-semibold">
+        {/* Menu with reduced spacing */}
+        <nav className="mt-0 flex space-x-8 text-2xl font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
