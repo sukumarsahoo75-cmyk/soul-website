@@ -34,7 +34,7 @@ export default function App() {
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: "400px", height: "auto", margin: "0", filter: "brightness(0) invert(1)" }}
+          style={{ width: "400px", height: "auto", margin: "0" }}
         />
 
         {/* Menu with minimal spacing */}
