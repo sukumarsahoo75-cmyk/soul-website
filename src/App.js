@@ -27,17 +27,17 @@ export default function App() {
     <div className="bg-black text-gray-100">
       {/* Navbar with minimal spacing but gap below */}
       <header className="flex flex-col items-center pt-0 pb-0 mb-4 border-b border-gray-800">
-        {/* Logo with minimal spacing - fixed width on mobile */}
+        {/* Logo with responsive sizing - smaller on mobile */}
         <img
           src="/images/logo.png"
           alt="SOUL Logo"
           className={`transition-transform duration-1000 ease-out ${
             loaded ? "opacity-100" : "opacity-0"
-          } w-[400px] max-w-full h-auto mx-0 my-0`}
+          } w-[280px] md:w-[400px] h-auto mx-0 my-0`}
         />
 
         {/* Menu with minimal spacing and hover underline animation */}
-        <nav className="mt-0 mb-1 flex space-x-8 text-lg font-semibold">
+        <nav className="mt-0 mb-1 flex space-x-6 md:space-x-8 text-lg font-semibold">
           {["Products", "About", "Contact"].map((item, index) => (
             <a
               key={item}
