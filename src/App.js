@@ -1,5 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { User, ShoppingCart, Menu, X } from "lucide-react";
+
+// Simple SVG icons to replace lucide-react imports
+const UserIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const ShoppingCartIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="21" r="1" />
+    <circle cx="20" cy="21" r="1" />
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+  </svg>
+);
+
+const MenuIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -75,7 +105,7 @@ export default function App() {
             className="md:hidden text-gold-500"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
 
           {/* Logo */}
@@ -104,10 +134,10 @@ export default function App() {
           {/* Icons */}
           <div className="flex items-center space-x-4">
             <button className="text-gold-500 hover:text-gold-300 transition">
-              <User size={24} />
+              <UserIcon />
             </button>
             <button className="text-gold-500 hover:text-gold-300 transition relative">
-              <ShoppingCart size={24} />
+              <ShoppingCartIcon />
               {cartItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gold-500 text-black text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItems}
