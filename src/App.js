@@ -44,11 +44,11 @@ export default function App() {
     "/images/hero-bg3.jpg"
   ];
 
-  // Product data
+  // Updated Product data with 5 products and new names
   const products = [
     {
       id: 1,
-      name: "Soul No. 1",
+      name: "Mystic",
       description: "A fresh, modern fragrance with notes of citrus and amber.",
       price: 89.99,
       images: ["/images/product1.jpg", "/images/product1-alt1.jpg", "/images/product1-alt2.jpg"],
@@ -56,7 +56,7 @@ export default function App() {
     },
     {
       id: 2,
-      name: "Soul No. 2",
+      name: "Blu",
       description: "A warm, woody fragrance with hints of vanilla and musk.",
       price: 94.99,
       images: ["/images/product2.jpg", "/images/product2-alt1.jpg", "/images/product2-alt2.jpg"],
@@ -64,19 +64,27 @@ export default function App() {
     },
     {
       id: 3,
-      name: "Soul No. 3",
+      name: "Oud Intense",
       description: "A floral, elegant fragrance for a truly timeless feel.",
       price: 87.99,
       images: ["/images/product3.jpg", "/images/product3-alt1.jpg", "/images/product3-alt2.jpg"],
-      category: "for-her"
+      category: "for-him"
     },
     {
       id: 4,
-      name: "Soul No. 4",
+      name: "Her",
       description: "An intense, mysterious blend with oud and spice notes for the bold.",
       price: 109.99,
       images: ["/images/product4.jpg", "/images/product4-alt1.jpg", "/images/product4-alt2.jpg"],
-      category: "for-him"
+      category: "for-her"
+    },
+    {
+      id: 5,
+      name: "Luxury Perfume Gift Set - 4 x 20ml",
+      description: "Experience our signature collection with this exquisite gift set featuring four distinct fragrances.",
+      price: 199.99,
+      images: ["/images/product5.jpg", "/images/product5-alt1.jpg", "/images/product5-alt2.jpg"],
+      category: "gift-sets"
     }
   ];
 
@@ -117,9 +125,9 @@ export default function App() {
             />
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Updated with Gift Sets */}
           <nav className="hidden md:flex space-x-6 lg:space-x-8 text-lg font-semibold">
-            {["Home", "Our Story", "For Him", "For Her", "All Products", "Contact Us"].map((item) => (
+            {["Home", "Our Story", "For Him", "For Her", "Gift Sets", "All Products", "Contact Us"].map((item) => (
               <a
                 key={item}
                 href={item === "Home" ? "#" : `#${item.toLowerCase().replace(" ", "-")}`}
@@ -147,10 +155,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Updated with Gift Sets */}
         {mobileMenuOpen && (
           <nav className="md:hidden bg-gray-900 py-4 px-4">
-            {["Home", "Our Story", "For Him", "For Her", "All Products", "Contact Us"].map((item) => (
+            {["Home", "Our Story", "For Him", "For Her", "Gift Sets", "All Products", "Contact Us"].map((item) => (
               <a
                 key={item}
                 href={item === "Home" ? "#" : `#${item.toLowerCase().replace(" ", "-")}`}
@@ -206,9 +214,9 @@ export default function App() {
       </section>
 
       {/* Product Section */}
-      <section id="all-products" className="py-16 px-6 max-w-6xl mx-auto text-center bg-gray-900">
+      <section id="all-products" className="py-16 px-6 max-w-7xl mx-auto text-center bg-gray-900">
         <h2 className="text-3xl font-bold mb-10 text-gold-500">Our Collection</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {products.map((product) => (
             <div key={product.id} className="bg-gray-800 shadow-2xl rounded-xl p-4 border border-gray-700 hover:border-gold-500 transition-all duration-300">
               <img
