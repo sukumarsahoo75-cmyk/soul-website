@@ -31,11 +31,24 @@ const CloseIcon = () => (
   </svg>
 );
 
+const ChevronLeft = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m15 18-6-6 6-6" />
+  </svg>
+);
+
+const ChevronRight = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+);
+
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [currentBg, setCurrentBg] = useState(0);
   const [cartItems, setCartItems] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
 
   // Array of background images
   const backgroundImages = [
@@ -44,13 +57,21 @@ export default function App() {
     "/images/hero-bg3.jpg"
   ];
 
-  // Updated Product data with 5 products and new names
+  // Updated Product data with 5 products, new names, and Gift Set first
   const products = [
+    {
+      id: 5,
+      name: "Luxury Perfume Gift Set - 4 x 20ml",
+      description: "Experience our signature collection with this exquisite gift set featuring four distinct fragrances.",
+      price: 4999,
+      images: ["/images/product5.jpg", "/images/product5-alt1.jpg", "/images/product5-alt2.jpg"],
+      category: "gift-sets"
+    },
     {
       id: 1,
       name: "Mystic",
       description: "A fresh, modern fragrance with notes of citrus and amber.",
-      price: 89.99,
+      price: 7499,
       images: ["/images/product1.jpg", "/images/product1-alt1.jpg", "/images/product1-alt2.jpg"],
       category: "for-her"
     },
@@ -58,33 +79,25 @@ export default function App() {
       id: 2,
       name: "Blu",
       description: "A warm, woody fragrance with hints of vanilla and musk.",
-      price: 94.99,
+      price: 7999,
       images: ["/images/product2.jpg", "/images/product2-alt1.jpg", "/images/product2-alt2.jpg"],
       category: "for-him"
     },
     {
       id: 3,
       name: "Oud Intense",
-      description: "A floral, elegant fragrance for a truly timeless feel.",
-      price: 87.99,
+      description: "A rich, intense oud fragrance with deep woody and spicy notes.",
+      price: 8999,
       images: ["/images/product3.jpg", "/images/product3-alt1.jpg", "/images/product3-alt2.jpg"],
       category: "for-him"
     },
     {
       id: 4,
       name: "Her",
-      description: "An intense, mysterious blend with oud and spice notes for the bold.",
-      price: 109.99,
+      description: "An elegant floral fragrance with delicate notes of jasmine and rose.",
+      price: 7299,
       images: ["/images/product4.jpg", "/images/product4-alt1.jpg", "/images/product4-alt2.jpg"],
       category: "for-her"
-    },
-    {
-      id: 5,
-      name: "Luxury Perfume Gift Set - 4 x 20ml",
-      description: "Experience our signature collection with this exquisite gift set featuring four distinct fragrances.",
-      price: 199.99,
-      images: ["/images/product5.jpg", "/images/product5-alt1.jpg", "/images/product5-alt2.jpg"],
-      category: "gift-sets"
     }
   ];
 
@@ -102,6 +115,24 @@ export default function App() {
   const addToCart = () => {
     setCartItems(cartItems + 1);
   };
+
+  const nextProducts = () => {
+    setCurrentProductIndex((prev) => (prev + 1) % (products.length - 3));
+  };
+
+  const prevProducts = () => {
+    setCurrentProductIndex((prev) => (prev - 1 + (products.length - 3)) % (products.length - 3));
+  };
+
+  const formatIndianRupees = (amount) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const visibleProducts = products.slice(currentProductIndex, currentProductIndex + 4);
 
   return (
     <div className="bg-black text-gray-100 min-h-screen">
@@ -186,7 +217,7 @@ export default function App() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gold-500 tracking-wide drop-shadow-lg hero-glow">
             Discover Your Signature Scent
           </h1>
-          <p className="mt-4 text-base md:text-lg text-gray-300 max-w-xl mx-auto">
+          <p className="mt-4 text-base md:text-lg text-gray-300 max-w-xl mx-auto font-sans">
             Premium, long-lasting perfumes designed to evoke emotions and
             memories. Experience the essence of SOUL.
           </p>
@@ -216,43 +247,84 @@ export default function App() {
       {/* Product Section */}
       <section id="all-products" className="py-16 px-6 max-w-7xl mx-auto text-center bg-gray-900">
         <h2 className="text-3xl font-bold mb-10 text-gold-500">Our Collection</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {products.map((product) => (
-            <div key={product.id} className="bg-gray-800 shadow-2xl rounded-xl p-4 border border-gray-700 hover:border-gold-500 transition-all duration-300">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="rounded-lg w-full h-64 object-cover"
-              />
-              <h3 className="mt-4 text-xl font-semibold text-gold-400">{product.name}</h3>
-              <p className="text-gray-400 text-sm mt-2">
-                {product.description}
-              </p>
-              <p className="text-gold-500 font-bold mt-2">${product.price}</p>
-              <div className="mt-4 flex justify-between">
-                <a 
-                  href={`/product/${product.id}`}
-                  className="px-4 py-2 bg-gray-700 text-gold-300 text-sm font-medium rounded hover:bg-gray-600 transition"
-                >
-                  View Details
-                </a>
-                <button 
-                  onClick={addToCart}
-                  className="px-4 py-2 bg-gold-600 text-black text-sm font-medium rounded hover:bg-gold-500 transition"
-                >
-                  Add to Cart
-                </button>
+        
+        {/* Product Slider */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          {products.length > 4 && (
+            <>
+              <button 
+                onClick={prevProducts}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-gold-500 text-black p-2 rounded-full hover:bg-gold-400 transition z-10"
+              >
+                <ChevronLeft />
+              </button>
+              
+              <button 
+                onClick={nextProducts}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-gold-500 text-black p-2 rounded-full hover:bg-gold-400 transition z-10"
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
+
+          {/* Products Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {visibleProducts.map((product) => (
+              <div key={product.id} className="bg-gray-800 shadow-2xl rounded-xl p-4 border border-gray-700 hover:border-gold-500 transition-all duration-300">
+                <img
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="rounded-lg w-full h-64 object-cover"
+                />
+                <h3 className="mt-4 text-xl font-semibold text-gold-400">{product.name}</h3>
+                <p className="text-gray-400 text-sm mt-2 font-sans leading-relaxed">
+                  {product.description}
+                </p>
+                <p className="text-gold-500 font-bold mt-2 font-sans">
+                  {formatIndianRupees(product.price)}
+                </p>
+                <div className="mt-4 flex justify-between">
+                  <a 
+                    href={`/product/${product.id}`}
+                    className="px-4 py-2 bg-gray-700 text-gold-300 text-sm font-medium rounded hover:bg-gray-600 transition font-sans"
+                  >
+                    View Details
+                  </a>
+                  <button 
+                    onClick={addToCart}
+                    className="px-4 py-2 bg-gold-600 text-black text-sm font-medium rounded hover:bg-gold-500 transition font-sans"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
+            ))}
+          </div>
+
+          {/* Slider Indicators */}
+          {products.length > 4 && (
+            <div className="flex justify-center mt-8 space-x-2">
+              {Array.from({ length: products.length - 3 }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProductIndex(index)}
+                  className={`w-3 h-3 rounded-full ${
+                    index === currentProductIndex ? "bg-gold-500" : "bg-gray-600"
+                  }`}
+                />
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </section>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-8 text-center border-t border-gray-800">
         <div className="container mx-auto px-4">
-          <p>© {new Date().getFullYear()} SOUL Fragrance. All Rights Reserved.</p>
-          <div className="mt-4 flex flex-wrap justify-center space-x-6">
+          <p className="font-sans">© {new Date().getFullYear()} SOUL Fragrance. All Rights Reserved.</p>
+          <div className="mt-4 flex flex-wrap justify-center space-x-6 font-sans">
             <a href="#" className="text-gold-500 hover:text-gold-300 transition">Privacy Policy</a>
             <a href="#" className="text-gold-500 hover:text-gold-300 transition">Terms of Service</a>
             <a href="#" className="text-gold-500 hover:text-gold-300 transition">Contact Us</a>
