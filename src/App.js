@@ -49,6 +49,7 @@ export default function App() {
   const [cartItems, setCartItems] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Array of background images
   const backgroundImages = [
@@ -117,11 +118,17 @@ export default function App() {
   };
 
   const nextProducts = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentProductIndex((prev) => (prev + 1) % (products.length - 3));
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const prevProducts = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentProductIndex((prev) => (prev - 1 + (products.length - 3)) % (products.length - 3));
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const formatIndianRupees = (amount) => {
@@ -255,64 +262,91 @@ export default function App() {
             <>
               <button 
                 onClick={prevProducts}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-gold-500 text-black p-2 rounded-full hover:bg-gold-400 transition z-10"
+                disabled={isAnimating}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-8 bg-gold-500 text-black p-3 rounded-full hover:bg-gold-400 transition z-10 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
               >
                 <ChevronLeft />
               </button>
               
               <button 
                 onClick={nextProducts}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-gold-500 text-black p-2 rounded-full hover:bg-gold-400 transition z-10"
+                disabled={isAnimating}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-8 bg-gold-500 text-black p-3 rounded-full hover:bg-gold-400 transition z-10 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
               >
                 <ChevronRight />
               </button>
             </>
           )}
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {visibleProducts.map((product) => (
-              <div key={product.id} className="bg-gray-800 shadow-2xl rounded-xl p-4 border border-gray-700 hover:border-gold-500 transition-all duration-300">
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="rounded-lg w-full h-64 object-cover"
-                />
-                <h3 className="mt-4 text-xl font-semibold text-gold-400">{product.name}</h3>
-                <p className="text-gray-400 text-sm mt-2 font-sans leading-relaxed">
-                  {product.description}
-                </p>
-                <p className="text-gold-500 font-bold mt-2 font-sans">
-                  {formatIndianRupees(product.price)}
-                </p>
-                <div className="mt-4 flex justify-between">
-                  <a 
-                    href={`/product/${product.id}`}
-                    className="px-4 py-2 bg-gray-700 text-gold-300 text-sm font-medium rounded hover:bg-gray-600 transition font-sans"
-                  >
-                    View Details
-                  </a>
-                  <button 
-                    onClick={addToCart}
-                    className="px-4 py-2 bg-gold-600 text-black text-sm font-medium rounded hover:bg-gold-500 transition font-sans"
-                  >
-                    Add to Cart
-                  </button>
+          {/* Products Container with Animation */}
+          <div className="overflow-hidden">
+            <div 
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 transition-all duration-500 ${
+                isAnimating ? 'opacity-70 scale-95' : 'opacity-100 scale-100'
+              }`}
+            >
+              {visibleProducts.map((product, index) => (
+                <div 
+                  key={product.id}
+                  className={`bg-gray-800 shadow-2xl rounded-xl p-4 border border-gray-700 hover:border-gold-500 transition-all duration-500 transform ${
+                    isAnimating ? 'translate-x-4 opacity-0' : 'translate-x-0 opacity-100'
+                  }`}
+                  style={{
+                    transitionDelay: isAnimating ? '0ms' : `${index * 100}ms`
+                  }}
+                >
+                  <div className="overflow-hidden rounded-lg">
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      className="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold text-gold-400">{product.name}</h3>
+                  <p className="text-gray-400 text-sm mt-2 font-sans leading-relaxed">
+                    {product.description}
+                  </p>
+                  <p className="text-gold-500 font-bold mt-2 font-sans">
+                    {formatIndianRupees(product.price)}
+                  </p>
+                  <div className="mt-4 flex justify-between space-x-2">
+                    <a 
+                      href={`/product/${product.id}`}
+                      className="flex-1 px-3 py-2 bg-gray-700 text-gold-300 text-sm font-medium rounded hover:bg-gray-600 transition font-sans text-center"
+                    >
+                      View Details
+                    </a>
+                    <button 
+                      onClick={addToCart}
+                      className="flex-1 px-3 py-2 bg-gold-600 text-black text-sm font-medium rounded hover:bg-gold-500 transition font-sans"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Slider Indicators */}
           {products.length > 4 && (
-            <div className="flex justify-center mt-8 space-x-2">
+            <div className="flex justify-center mt-8 space-x-3">
               {Array.from({ length: products.length - 3 }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentProductIndex(index)}
-                  className={`w-3 h-3 rounded-full ${
-                    index === currentProductIndex ? "bg-gold-500" : "bg-gray-600"
-                  }`}
+                  onClick={() => {
+                    if (!isAnimating) {
+                      setIsAnimating(true);
+                      setCurrentProductIndex(index);
+                      setTimeout(() => setIsAnimating(false), 500);
+                    }
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentProductIndex 
+                      ? "bg-gold-500 scale-125" 
+                      : "bg-gray-600 hover:bg-gray-500"
+                  } ${isAnimating ? 'opacity-50' : 'opacity-100'}`}
+                  disabled={isAnimating}
                 />
               ))}
             </div>
