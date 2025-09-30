@@ -9,7 +9,7 @@ const ForHim = () => {
       name: "Mystic",
       description: "A fresh, modern fragrance with notes of citrus and amber.",
       price: 599,
-      images: ["/images/product1.jpg"],
+      images: ["/product1.jpg"],
       category: "unisex"
     },
     {
@@ -17,7 +17,7 @@ const ForHim = () => {
       name: "Blu",
       description: "A warm, woody fragrance with hints of vanilla and musk.",
       price: 499,
-      images: ["/images/product2.jpg"],
+      images: ["/product2.jpg"],
       category: "for-him"
     },
     {
@@ -25,7 +25,7 @@ const ForHim = () => {
       name: "Oud Intense",
       description: "A rich, intense oud fragrance with deep woody and spicy notes.",
       price: 599,
-      images: ["/images/product3.jpg"],
+      images: ["/product3.jpg"],
       category: "unisex"
     }
   ];

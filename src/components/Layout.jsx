@@ -63,7 +63,7 @@ const Layout = ({ children, cartItems = 0 }) => {
           <div className="flex-1 flex justify-center md:flex-none md:justify-start">
             <Link to="/">
               <img
-                src="/images/logo.png"
+                src="/logo.png"
                 alt="SOUL Logo"
                 className="w-[200px] md:w-[280px] lg:w-[320px] h-auto"
               />

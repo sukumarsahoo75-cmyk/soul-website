@@ -6,9 +6,9 @@ const HeroSection = () => {
 
   // Array of background images
   const backgroundImages = [
-    "/images/hero-bg.jpg",
-    "/images/hero-bg2.jpg",
-    "/images/hero-bg3.jpg"
+    "/hero-bg.jpg",
+    "/hero-bg2.jpg",
+    "/hero-bg3.jpg"
   ];
 
   useEffect(() => {

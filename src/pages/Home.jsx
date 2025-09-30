@@ -24,9 +24,9 @@ const Home = () => {
 
   // Array of background images
   const backgroundImages = [
-    "/images/hero-bg.jpg",
-    "/images/hero-bg2.jpg",
-    "/images/hero-bg3.jpg"
+    "/hero-bg.jpg",
+    "/hero-bg2.jpg",
+    "/hero-bg3.jpg"
   ];
 
   // Product data
@@ -36,7 +36,7 @@ const Home = () => {
       name: "Luxury Perfume Gift Set - 4 x 20ml",
       description: "Experience our signature collection with this exquisite gift set featuring four distinct fragrances.",
       price: 699,
-      images: ["/images/product5.jpg"],
+      images: ["/product5.jpg"],
       category: "gift-sets"
     },
     {
@@ -44,7 +44,7 @@ const Home = () => {
       name: "Mystic",
       description: "A fresh, modern fragrance with notes of citrus and amber.",
       price: 599,
-      images: ["/images/product1.jpg"],
+      images: ["/product1.jpg"],
       category: "for-her"
     },
     {
@@ -52,7 +52,7 @@ const Home = () => {
       name: "Blu",
       description: "A warm, woody fragrance with hints of vanilla and musk.",
       price: 499,
-      images: ["/images/product2.jpg"],
+      images: ["/product2.jpg"],
       category: "for-him"
     },
     {
@@ -60,7 +60,7 @@ const Home = () => {
       name: "Oud Intense",
       description: "A rich, intense oud fragrance with deep woody and spicy notes.",
       price: 599,
-      images: ["/images/product3.jpg"],
+      images: ["/product3.jpg"],
       category: "for-him"
     },
     {
@@ -68,7 +68,7 @@ const Home = () => {
       name: "Her",
       description: "An elegant floral fragrance with delicate notes of jasmine and rose.",
       price: 499,
-      images: ["/images/product4.jpg"],
+      images: ["/product4.jpg"],
       category: "for-her"
     }
   ];

@@ -21,9 +21,9 @@ const ProductDetail = () => {
       longDescription: "Mystic is a captivating unisex fragrance that opens with bright citrus notes of bergamot, lemon and orange revealing a heart of delicate Saffron, Jasmine and Amber. Perfect for daytime wear, it leaves a subtle, memorable trail that works beautifully for both men and women.",
       price: 599,
       images: [
-        "/images/product1.jpg",
-        "/images/product1.jpg",
-        "/images/product1.jpg"
+        "/product1.jpg",
+        "/product1.jpg",
+        "/product1.jpg"
       ],
       features: [
         "Long-lasting 8+ hours",
@@ -46,9 +46,9 @@ const ProductDetail = () => {
       longDescription: "Blu is a bold and masculine fragrance that captures the alluring essence of the Mediterranean. Its powerful aquatic heart is invigorated by zesty bursts of bergamot and grapefruit, while rare saffron adds a touch of spice. A rich, musky base rounds out the scent, creating a captivating and sophisticated aroma.",
       price: 499,
       images: [
-        "/images/product2.jpg",
-        "/images/product2.jpg",
-        "/images/product2.jpg"
+        "/product2.jpg",
+        "/product2.jpg",
+        "/product2.jpg"
       ],
       features: [
         "Long-lasting 10+ hours",
@@ -70,9 +70,9 @@ const ProductDetail = () => {
       longDescription: "Oud Intense is a powerful unisex Oriental Woody fragrance that celebrates the rich heritage of oud. With deep woody notes complemented by exotic spices, this scent makes a bold statement while maintaining an air of sophistication suitable for both men and women.",
       price: 599,
       images: [
-        "/images/product3.jpg",
-        "/images/product3.jpg",
-        "/images/product3.jpg"
+        "/product3.jpg",
+        "/product3.jpg",
+        "/product3.jpg"
       ],
       features: [
         "Long-lasting 8+ hours",
@@ -95,9 +95,9 @@ const ProductDetail = () => {
       longDescription: "Her is a radiant and empowering fragrance crafted for the woman who blends softness with strength. It opens with a delicate veil of powdery musk, kissed by sparkling citrus notes of bergamot and grapefruit, creating a fresh yet sophisticated first impression. As the scent unfolds, a heart of rose and patchouli adds depth and allure, while smoky pineapple and oakmoss from Creed Aventus lend a bold, modern twist. The base settles into warm amber and woods, leaving a trail that's both sensual and unforgettable.",
       price: 499,
       images: [
-        "/images/product4.jpg",
-        "/images/product4.jpg",
-        "/images/product4.jpg"
+        "/product4.jpg",
+        "/product4.jpg",
+        "/product4.jpg"
       ],
       features: [
         "Long-lasting 8+ hours",
@@ -119,9 +119,9 @@ const ProductDetail = () => {
       longDescription: "Experience the complete SOUL fragrance journey with our exquisite Luxury Perfume Gift Set. This carefully curated collection includes all four of our signature scents in elegant 20ml bottles, beautifully presented in premium gift packaging. Perfect for discovering your favorite fragrance or as an unforgettable gift for someone special. From the captivating Mystic to the bold Oud Intense, the aquatic Blu to the radiant Her - this set offers a complete olfactory experience for every mood and occasion.",
       price: 699,
       images: [
-        "/images/product5.jpg",
-        "/images/product5.jpg",
-        "/images/product5.jpg"
+        "/product5.jpg",
+        "/product5.jpg",
+        "/product5.jpg"
       ],
       features: [
         "4 different fragrances",

@@ -9,7 +9,7 @@ const GiftSets = () => {
       name: "Luxury Perfume Gift Set - 4 x 20ml",
       description: "Experience our signature collection with this exquisite gift set featuring four distinct fragrances. Perfect for gifting or personal discovery.",
       price: 699,
-      images: ["/images/product5.jpg"],
+      images: ["/product5.jpg"],
       category: "gift-sets",
       includes: ["Mystic 20ml", "Blu 20ml", "Oud Intense 20ml", "Her 20ml", "Elegant Gift Box"]
     }
