@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore"; // <-- ADD THIS
 
-// This now securely reads your keys from the .env.local file
+// This securely reads your keys from the .env.local file
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,4 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+// Export auth and firestore services for other parts of the app to use
 export const auth = getAuth(app);
+export const db = getFirestore(app); // <-- ADD THIS
