@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { useCart } from '../context/CartContext'; // <-- Import useCart
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { dispatch } = useCart(); // <-- Get dispatch function
 
-  // Scroll to top when component mounts or product ID changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // Complete product data for all 5 products with updated details
+  // (allProducts data remains the same)
   const allProducts = {
     1: {
       id: 1,
@@ -131,16 +132,14 @@ const ProductDetail = () => {
         "Ideal for gifting",
         "Discover your signature scent"
       ],
-      // Removed notes for gift set
       category: "gift-sets"
     }
   };
-
-  // Get the specific product based on the ID from URL
+  
   const product = allProducts[id];
 
-  // If product not found, show error page
   if (!product) {
+    // (Error handling remains the same)
     return (
       <Layout>
         <section className="py-16 bg-gray-900 min-h-screen">
@@ -157,8 +156,11 @@ const ProductDetail = () => {
   }
 
   const addToCart = () => {
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-    alert(`Added ${quantity} ${product.name} to cart!`);
+    dispatch({
+        type: 'ADD_ITEM',
+        payload: { ...product, quantity: quantity } // Add item with selected quantity
+    });
+    alert(`Added ${quantity} of ${product.name} to cart!`);
   };
 
   const formatIndianRupees = (amount) => {

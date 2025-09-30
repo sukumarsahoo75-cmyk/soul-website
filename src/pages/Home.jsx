@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import { Link } from 'react-router-dom'; // ADD THIS IMPORT
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext'; // <-- ADDED
 
-// SVG Icons for Home page
+// SVG Icons for Home page (remain the same)
 const ChevronLeft = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="m15 18-6-6 6-6" />
@@ -18,9 +19,9 @@ const ChevronRight = () => (
 const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [currentBg, setCurrentBg] = useState(0);
-  const [cartItems, setCartItems] = useState(0);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const { dispatch } = useCart(); // <-- ADDED
 
   // Array of background images
   const backgroundImages = [
@@ -84,8 +85,13 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const addToCart = () => {
-    setCartItems(cartItems + 1);
+  // UPDATED: This is the real addToCart function
+  const addToCart = (product) => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { ...product, quantity: 1 }
+    });
+    alert(`${product.name} added to cart!`);
   };
 
   const nextProducts = () => {
@@ -113,7 +119,7 @@ const Home = () => {
   const visibleProducts = products.slice(currentProductIndex, currentProductIndex + 4);
 
   return (
-    <Layout cartItems={cartItems}>
+    <Layout> {/* <-- REMOVED cartItems prop */}
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center h-[80vh] flex items-center justify-center transition-all duration-1000"
@@ -221,7 +227,7 @@ const Home = () => {
                       View Details
                     </Link>
                     <button 
-                      onClick={addToCart}
+                      onClick={() => addToCart(product)} // <-- UPDATED to pass the product
                       className="flex-1 px-3 py-2 bg-gold-600 text-black text-sm font-medium rounded hover:bg-gold-500 transition font-sans"
                     >
                       Add to Cart

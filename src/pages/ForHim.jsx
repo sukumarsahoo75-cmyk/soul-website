@@ -1,8 +1,11 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext'; // <-- Import useCart
 
 const ForHim = () => {
+  const { dispatch } = useCart(); // <-- Get dispatch function
+
   const menProducts = [
     {
       id: 1,
@@ -38,8 +41,12 @@ const ForHim = () => {
     }).format(amount);
   };
 
+  // This is now the real addToCart function
   const addToCart = (product) => {
-    console.log(`Added ${product.name} to cart`);
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { ...product, quantity: 1 } // Add 1 item
+    });
     alert(`Added ${product.name} to cart!`);
   };
 
