@@ -13,9 +13,10 @@ import ScrollToTop from './components/ScrollToTop';
 import OurStory from './pages/OurStory';
 import ContactUs from './pages/ContactUs';
 import Profile from './pages/Profile';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // --- ADD THIS IMPORT ---
-import ProtectedRoute from './components/ProtectedRoute';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -34,12 +35,21 @@ function App() {
         <Route path="/our-story" element={<OurStory />} />
         <Route path="/contact-us" element={<ContactUs />} />
         
-        {/* --- UPDATE THIS ROUTE --- */}
         <Route 
           path="/profile" 
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          } 
+        />
+        
+        {/* --- ADD THIS NEW PROTECTED ROUTE --- */}
+        <Route 
+          path="/checkout" 
+          element={
+            <ProtectedRoute>
+              <Checkout />
             </ProtectedRoute>
           } 
         />

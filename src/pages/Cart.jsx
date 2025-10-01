@@ -90,7 +90,6 @@ const Cart = () => {
                     <span>Subtotal</span>
                     <span>{formatIndianRupees(subtotal)}</span>
                   </div>
-                  {/* --- THIS IS THE CHANGED PART --- */}
                   <div className="flex justify-between text-gray-300">
                     <span>Shipping</span>
                     <span className="text-sm">Calculated at checkout</span>
@@ -103,9 +102,12 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-gold-600 text-black font-semibold py-3 rounded-lg hover:bg-gold-500 transition mb-4 font-sans">
-                  Proceed to Checkout
-                </button>
+                {/* --- THIS IS THE UPDATED PART --- */}
+                <Link to="/checkout" className="block w-full">
+                  <button className="w-full bg-gold-600 text-black font-semibold py-3 rounded-lg hover:bg-gold-500 transition mb-4 font-sans">
+                    Proceed to Checkout
+                  </button>
+                </Link>
                 
                 <Link to="/all-products" className="block text-center text-gold-500 hover:text-gold-300 transition font-sans">
                   Continue Shopping
